@@ -9,7 +9,6 @@
     <style>
         :root {
             --christmas-red: #8b0000;
-            --christmas-green: #2f5233;
             --gold: #fdf5e6;
         }
 
@@ -24,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* Animation de neige */
+        /* Neige */
         .snowflake {
             position: fixed;
             top: -10px;
@@ -74,7 +73,7 @@
             font-style: italic;
         }
 
-        /* Galerie Photo */
+        /* Galerie */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -91,7 +90,7 @@
 
         .photo-card {
             background: white;
-            padding: 10px 10px 25px 10px; /* Effet Polaroid */
+            padding: 10px 10px 25px 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
             transform: rotate(0deg);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -113,7 +112,7 @@
             border: 1px solid #ddd;
         }
 
-        /* Lightbox (Zoom image) */
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -135,7 +134,6 @@
             max-height: 80vh;
             border: 5px solid white;
             border-radius: 4px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
 
         .close {
@@ -145,18 +143,9 @@
             color: #f1f1f1;
             font-size: 40px;
             font-weight: bold;
-            transition: 0.3s;
             cursor: pointer;
         }
 
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px;
@@ -166,7 +155,6 @@
             z-index: 5;
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
             .gallery { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
@@ -190,8 +178,7 @@
     </header>
 
     <div class="container">
-        <div class="gallery" id="gallery">
-            </div>
+        <div class="gallery" id="gallery"></div>
     </div>
 
     <footer>
@@ -204,25 +191,76 @@
     </div>
 
     <script>
-        // Liste mise à jour : tout est en .jpg
+        // Liste exacte mise à jour d'après tes captures d'écran
         const photos = [
-            "P1014120.jpg", "P1014074.jpg", "P1014003.jpg", "P1013980.jpg", "P1013867.jpg",
-            "P1013807.jpg", "20181227_133517.jpg", "20181226_154231.jpg", "20181226_154219.jpg",
-            "P1003100.jpg", "P1010523.jpg", "P1010412.jpg", "P1010403.jpg", "P1010384.jpg",
-            "P1010197.jpg", "P1010193.jpg", "IMG_20170728_102900 2.jpg", "IMG_3582.jpg", 
-            "IMG_3577.jpg", "20150812_153759.jpg", "20150811_163411.jpg", "20150727_131625.jpg",
-            "100PICT0174.jpg", "100PICT0164.jpg", "100PICT0156.jpg", "100PICT0155.jpg",
-            "100PICT0154.jpg", "100PICT0145.jpg", "P1014259.jpg", "P1014147.jpg",
-            "IMG_3775.jpg", "IMG_3773.jpg", "_DSC0787.jpg", "_DSC0740.jpg",
-            "IMG_20170728_161558.jpg", "IMG_20170728_102900.jpg", "IMG_20170419_150247.jpg",
-            "IMG_20170419_145712.jpg", "P1000851.jpg", "_DSC1480.jpg", "_DSC0006.jpg",
-            "_DSC0544.jpg", "_DSC0389.jpg", "_DSC0226.jpg", "_DSC0088.jpg", "_DSC0055.jpg",
-            "_DSC1153.jpg", "_DSC1124.jpg", "P1002982.jpg", "_DSC_0971.jpg", "_DSC_0963.jpg",
-            "_DSC_0906.jpg", "_DSC_0892.jpg", "_DSC_0801.jpg", "1439310778494.jpg",
-            "1439310593346.jpg", "1439295358621.jpg", "1439293045656.jpg", "1439233156055.jpg",
-            "1439233133962.jpg", "P1050523.jpg", "P1000854.jpg", "P1000852.jpg",
-            "20151014_145126.jpg", "_DSC0293.jpg", "_DSC0040.jpg", "_DSC_Avignon (378).jpg",
-            "_DSC_Avignon (48).jpg"
+            "P1010523 4.24.25 PM.jpg",
+            "P1013867 4.24.25 PM.jpg",
+            "P1014259 4.24.25 PM.jpg",
+            "DSC_0801 4.24.25 PM.jpg",
+            "P1010384 4.24.25 PM.jpg",
+            "DSC_0906 4.24.25 PM.jpg",
+            "_DSC0226 4.24.25 PM.jpg",
+            "IMG_20170728_161558 4.24.25 PM.jpg",
+            "P1014074 4.24.25 PM.jpg",
+            "_DSC0040 4.24.25 PM.jpg",
+            "DSC_0963 4.24.25 PM.jpg",
+            "P1014120 4.24.25 PM.jpg",
+            "_DSC0055 4.24.25 PM.jpg",
+            "IMG_3582 4.24.25 PM.jpg",
+            "IMG_3577 4.24.25 PM.jpg",
+            "_DSC0293 4.24.25 PM.jpg",
+            "_DSC1124 4.24.25 PM.jpg",
+            "20150727_131625 4.24.25 PM.jpg",
+            "IMG_20170728_102900 2 4.24.25 PM.jpg",
+            "P1013807 4.24.25 PM.jpg",
+            "P1010197 4.24.25 PM.jpg",
+            "IMG_20170728_102900 4.24.25 PM.jpg",
+            "20151014_145126 4.24.25 PM.jpg",
+            "_DSC1480 4.24.25 PM.jpg",
+            "P1010193 4.24.25 PM.jpg",
+            "P1050523 4.24.25 PM.jpg",
+            "P1014003 4.24.25 PM.jpg",
+            "P1010403 4.24.25 PM.jpg",
+            "20150812_153759 4.24.25 PM.jpg",
+            "P1000851 4.24.25 PM.jpg",
+            "IMG_3775 4.24.25 PM.jpg",
+            "_DSC0006 4.24.25 PM.jpg",
+            "P1013980 4.24.25 PM.jpg",
+            "100PICT0145 4.24.25 PM.jpg",
+            "P1003100 4.24.25 PM.jpg",
+            "IMG_20170419_150247 4.24.25 PM.jpg",
+            "P1000852 4.24.25 PM.jpg",
+            "P1010412 4.24.25 PM.jpg",
+            "20150811_163411 4.24.25 PM.jpg",
+            "_DSC0389 4.24.25 PM.jpg",
+            "P1002982 4.24.25 PM.jpg",
+            "P1000854 4.24.25 PM.jpg",
+            "_DSC1153 4.24.25 PM.jpg",
+            "_DSC_Avignon (48) 4.24.25 PM.jpg",
+            "IMG_3773 4.24.25 PM.jpg",
+            "IMG_20170419_145712 4.24.25 PM.jpg",
+            "P1014147 4.24.25 PM.jpg",
+            "DSC_0971 4.24.25 PM.jpg",
+            "_DSC0088 4.24.25 PM.jpg",
+            "DSC_0892 4.24.25 PM.jpg",
+            "_DSC_Avignon (378) 4.24.25 PM.jpg",
+            "20181227_133517 4.24.25 PM.jpg",
+            "_DSC0787 4.24.25 PM.jpg",
+            "_DSC0544 4.24.25 PM.jpg",
+            "_DSC0740 4.24.25 PM.jpg",
+            "20181226_154231 4.24.25 PM.jpg",
+            "20181226_154219 4.24.25 PM.jpg",
+            "100PICT0164 4.24.25 PM.jpg",
+            "100PICT0174 4.24.25 PM.jpg",
+            "100PICT0155 4.24.25 PM.jpg",
+            "100PICT0154 4.24.25 PM.jpg",
+            "100PICT0156 4.24.25 PM.jpg",
+            "1439310778494 4.24.25 PM.jpg",
+            "1439310593346 4.24.25 PM.jpg",
+            "1439233133962 4.24.25 PM.jpg",
+            "1439233156055 4.24.25 PM.jpg",
+            "1439293045656 4.24.25 PM.jpg",
+            "1439295358621 4.24.25 PM.jpg"
         ];
 
         const gallery = document.getElementById('gallery');
@@ -230,29 +268,25 @@
         const lightboxImg = document.getElementById("img01");
         const closeBtn = document.getElementsByClassName("close")[0];
 
-        // Génération de la galerie
         photos.forEach(filename => {
-            // Création de la carte photo
             const card = document.createElement('div');
             card.className = 'photo-card';
             
-            // On ajoute une rotation aléatoire légère
             const randomRotation = Math.floor(Math.random() * 6) - 3; 
             card.style.transform = `rotate(${randomRotation}deg)`;
 
             const img = document.createElement('img');
-            // Le chemin vers le dossier image
-            img.src = `image/${filename}`;
-            img.alt = "Souvenir";
-            img.loading = "lazy"; // Chargement optimisé
+            // Le chemin dossier + nom exact
+            img.src = `image/${filename}`; 
+            img.alt = "Souvenir de Noël";
+            img.loading = "lazy";
 
-            // Gestion des erreurs
+            // Si ça échoue encore, on affiche l'erreur dans la console (F12)
             img.onerror = function() {
                 this.parentElement.style.display = 'none';
-                console.log("Image introuvable: " + filename);
+                console.log("Erreur chargement : " + filename);
             };
 
-            // Ouverture de la lightbox au clic
             card.onclick = function() {
                 lightbox.style.display = "flex";
                 lightboxImg.src = img.src;
@@ -262,17 +296,8 @@
             gallery.appendChild(card);
         });
 
-        // Fermeture de la lightbox
-        closeBtn.onclick = function() { 
-            lightbox.style.display = "none"; 
-        }
-
-        // Fermeture en cliquant en dehors de l'image
-        lightbox.onclick = function(event) {
-            if (event.target === lightbox) {
-                lightbox.style.display = "none";
-            }
-        }
+        closeBtn.onclick = function() { lightbox.style.display = "none"; }
+        lightbox.onclick = function(e) { if (e.target === lightbox) lightbox.style.display = "none"; }
     </script>
 </body>
 </html>
