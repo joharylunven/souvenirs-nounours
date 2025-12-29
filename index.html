@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Noël Margot !</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --christmas-red: #8b0000;
+            --christmas-green: #2f5233;
+            --gold: #fdf5e6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--christmas-red);
+            background-image: linear-gradient(180deg, #5c0e0e 0%, #8b0000 100%);
+            color: var(--gold);
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animation de neige */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #FFF;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px #000;
+            user-select: none;
+            z-index: 9999;
+            animation-name: snowflakes-fall, snowflakes-shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+            animation-play-state: running, running;
+        }
+
+        @keyframes snowflakes-fall {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+
+        @keyframes snowflakes-shake {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(80px); }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Galerie Photo */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-card {
+            background: white;
+            padding: 10px 10px 25px 10px; /* Effet Polaroid */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transform: rotate(0deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid #ddd;
+        }
+
+        /* Lightbox (Zoom image) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border: 5px solid white;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .photo-card img { height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❅</div><div class="snowflake">❆</div>
+        <div class="snowflake">❅</div><div class="snowflake">❆</div>
+        <div class="snowflake">❅</div><div class="snowflake">❆</div>
+        <div class="snowflake">❅</div><div class="snowflake">❆</div>
+        <div class="snowflake">❅</div><div class="snowflake">❆</div>
+    </div>
+
+    <header>
+        <h1>Joyeux Noël Margot !</h1>
+        <p class="subtitle">Voici les souvenirs de nounours 🧸</p>
+    </header>
+
+    <div class="container">
+        <div class="gallery" id="gallery">
+            </div>
+    </div>
+
+    <footer>
+        <p>Fait avec ❤️ pour Noël</p>
+    </footer>
+
+    <div id="myLightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="img01">
+    </div>
+
+    <script>
+        // Liste complète de tes fichiers extraite des captures d'écran
+        const photos = [
+            "P1014120.jpg", "P1014074.jpg", "P1014003.jpg", "P1013980.jpg", "P1013867.jpg",
+            "P1013807.jpg", "20181227_133517.jpg", "20181226_154231.jpg", "20181226_154219.jpg",
+            "P1003100.jpg", "P1010523.jpg", "P1010412.jpg", "P1010403.jpg", "P1010384.jpg",
+            "P1010197.jpg", "P1010193.jpg", "IMG_20170728_102900 2.jpg", "IMG_3582.jpg", 
+            "IMG_3577.jpg", "20150812_153759.jpg", "20150811_163411.jpg", "20150727_131625.jpg",
+            "100PICT0174.jpg", "100PICT0164.jpg", "100PICT0156.jpg", "100PICT0155.jpg",
+            "100PICT0154.jpg", "100PICT0145.jpg", "P1014259.jpg", "P1014147.jpg",
+            "IMG_3775.jpg", "IMG_3773.jpg", "_DSC0787.jpg", "_DSC0740.jpg",
+            "IMG_20170728_161558.jpg", "IMG_20170728_102900.jpg", "IMG_20170419_150247.jpg",
+            "IMG_20170419_145712.jpg", "P1000851.jpg", "_DSC1480.jpg", "_DSC0006.jpg",
+            "_DSC0544.jpg", "_DSC0389.jpg", "_DSC0226.jpg", "_DSC0088.jpg", "_DSC0055.jpg",
+            "_DSC1153.jpg", "_DSC1124.jpg", "P1002982.jpg", "_DSC_0971.jpg", "_DSC_0963.jpg",
+            "_DSC_0906.jpg", "_DSC_0892.jpg", "_DSC_0801.jpg", "1439310778494.jpg",
+            "1439310593346.jpg", "1439295358621.jpg", "1439293045656.jpg", "1439233156055.jpg",
+            "1439233133962.jpg", "P1050523.jpg", "P1000854.jpg", "P1000852.jpg",
+            "20151014_145126.jpg", "_DSC0293.jpg", "_DSC0040.jpg", "_DSC_Avignon (378).jpg",
+            "_DSC_Avignon (48).jpg"
+        ];
+
+        const gallery = document.getElementById('gallery');
+        const lightbox = document.getElementById('myLightbox');
+        const lightboxImg = document.getElementById("img01");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        // Génération de la galerie
+        photos.forEach(filename => {
+            // Création de la carte photo
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            
+            // On ajoute une rotation aléatoire légère pour faire "vrac"
+            const randomRotation = Math.floor(Math.random() * 6) - 3; 
+            card.style.transform = `rotate(${randomRotation}deg)`;
+
+            const img = document.createElement('img');
+            // Le chemin vers le dossier image
+            img.src = `image/${filename}`;
+            img.alt = "Souvenir";
+            img.loading = "lazy"; // Chargement optimisé
+
+            // Gestion des erreurs (si une image manque, on la cache proprement)
+            img.onerror = function() {
+                this.parentElement.style.display = 'none';
+                console.log("Image introuvable: " + filename);
+            };
+
+            // Ouverture de la lightbox au clic
+            card.onclick = function() {
+                lightbox.style.display = "flex";
+                lightboxImg.src = img.src;
+            };
+
+            card.appendChild(img);
+            gallery.appendChild(card);
+        });
+
+        // Fermeture de la lightbox
+        closeBtn.onclick = function() { 
+            lightbox.style.display = "none"; 
+        }
+
+        // Fermeture en cliquant en dehors de l'image
+        lightbox.onclick = function(event) {
+            if (event.target === lightbox) {
+                lightbox.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
