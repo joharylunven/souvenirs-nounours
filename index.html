@@ -7,169 +7,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --christmas-red: #8b0000;
-            --gold: #fdf5e6;
-        }
-
+        :root { --christmas-red: #8b0000; --gold: #fdf5e6; }
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--christmas-red);
             background-image: linear-gradient(180deg, #5c0e0e 0%, #8b0000 100%);
             color: var(--gold);
             font-family: 'Nunito', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
         }
-
-        /* Neige */
         .snowflake {
-            position: fixed;
-            top: -10px;
-            color: #FFF;
-            font-size: 1em;
-            font-family: Arial, sans-serif;
-            text-shadow: 0 0 5px #000;
-            user-select: none;
-            z-index: 9999;
+            position: fixed; top: -10px; color: #FFF; font-size: 1em; z-index: 9999;
             animation-name: snowflakes-fall, snowflakes-shake;
             animation-duration: 10s, 3s;
-            animation-timing-function: linear, ease-in-out;
-            animation-iteration-count: infinite, infinite;
-            animation-play-state: running, running;
+            animation-iteration-count: infinite;
+            animation-play-state: running;
         }
+        @keyframes snowflakes-fall { 0% { top: -10%; } 100% { top: 100%; } }
+        @keyframes snowflakes-shake { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(80px); } }
+        
+        header { text-align: center; padding: 60px 20px; }
+        h1 { font-family: 'Mountains of Christmas', cursive; font-size: 4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        p.subtitle { font-size: 1.5rem; margin-top: 10px; font-style: italic; }
 
-        @keyframes snowflakes-fall {
-            0% { top: -10%; }
-            100% { top: 100%; }
-        }
-
-        @keyframes snowflakes-shake {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(80px); }
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        h1 {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 4rem;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            letter-spacing: 2px;
-        }
-
-        p.subtitle {
-            font-size: 1.5rem;
-            margin-top: 10px;
-            opacity: 0.9;
-            font-style: italic;
-        }
-
-        /* Galerie */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 5;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        
         .photo-card {
-            background: white;
-            padding: 10px 10px 25px 10px;
+            background: white; padding: 10px 10px 30px 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transform: rotate(0deg);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            border-radius: 2px;
+            transition: transform 0.3s; cursor: pointer;
         }
+        .photo-card:hover { transform: scale(1.05) rotate(2deg); z-index: 10; }
+        .photo-card img { width: 100%; height: 250px; object-fit: cover; border: 1px solid #ddd; }
 
-        .photo-card:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            z-index: 10;
-        }
+        /* Pour debug : si image cassée */
+        .photo-card img:after { content: "⚠️ Image introuvable"; display: block; color: red; font-size: 12px; }
 
-        .photo-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-            border: 1px solid #ddd;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            padding-top: 50px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox-content {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 80vh;
-            border: 5px solid white;
-            border-radius: 4px;
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            position: relative;
-            z-index: 5;
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .gallery { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-            .photo-card img { height: 150px; }
-        }
+        .lightbox { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .lightbox-content { max-width: 90%; max-height: 80vh; border: 5px solid white; }
+        .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; cursor: pointer; }
+        
+        footer { text-align: center; padding: 40px; opacity: 0.7; }
     </style>
 </head>
 <body>
-
     <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">❅</div><div class="snowflake">❆</div>
-        <div class="snowflake">❅</div><div class="snowflake">❆</div>
-        <div class="snowflake">❅</div><div class="snowflake">❆</div>
-        <div class="snowflake">❅</div><div class="snowflake">❆</div>
-        <div class="snowflake">❅</div><div class="snowflake">❆</div>
+        <div class="snowflake">❅</div><div class="snowflake">❆</div><div class="snowflake">❅</div>
+        <div class="snowflake">❆</div><div class="snowflake">❅</div><div class="snowflake">❆</div>
     </div>
 
     <header>
@@ -181,9 +66,7 @@
         <div class="gallery" id="gallery"></div>
     </div>
 
-    <footer>
-        <p>Fait avec ❤️ pour Noël</p>
-    </footer>
+    <footer><p>Fait avec ❤️ pour Noël</p></footer>
 
     <div id="myLightbox" class="lightbox">
         <span class="close">&times;</span>
@@ -191,100 +74,32 @@
     </div>
 
     <script>
-        // Liste exacte mise à jour d'après tes captures d'écran
-        const photos = [
-            "P1010523 4.24.25 PM.jpg",
-            "P1013867 4.24.25 PM.jpg",
-            "P1014259 4.24.25 PM.jpg",
-            "DSC_0801 4.24.25 PM.jpg",
-            "P1010384 4.24.25 PM.jpg",
-            "DSC_0906 4.24.25 PM.jpg",
-            "_DSC0226 4.24.25 PM.jpg",
-            "IMG_20170728_161558 4.24.25 PM.jpg",
-            "P1014074 4.24.25 PM.jpg",
-            "_DSC0040 4.24.25 PM.jpg",
-            "DSC_0963 4.24.25 PM.jpg",
-            "P1014120 4.24.25 PM.jpg",
-            "_DSC0055 4.24.25 PM.jpg",
-            "IMG_3582 4.24.25 PM.jpg",
-            "IMG_3577 4.24.25 PM.jpg",
-            "_DSC0293 4.24.25 PM.jpg",
-            "_DSC1124 4.24.25 PM.jpg",
-            "20150727_131625 4.24.25 PM.jpg",
-            "IMG_20170728_102900 2 4.24.25 PM.jpg",
-            "P1013807 4.24.25 PM.jpg",
-            "P1010197 4.24.25 PM.jpg",
-            "IMG_20170728_102900 4.24.25 PM.jpg",
-            "20151014_145126 4.24.25 PM.jpg",
-            "_DSC1480 4.24.25 PM.jpg",
-            "P1010193 4.24.25 PM.jpg",
-            "P1050523 4.24.25 PM.jpg",
-            "P1014003 4.24.25 PM.jpg",
-            "P1010403 4.24.25 PM.jpg",
-            "20150812_153759 4.24.25 PM.jpg",
-            "P1000851 4.24.25 PM.jpg",
-            "IMG_3775 4.24.25 PM.jpg",
-            "_DSC0006 4.24.25 PM.jpg",
-            "P1013980 4.24.25 PM.jpg",
-            "100PICT0145 4.24.25 PM.jpg",
-            "P1003100 4.24.25 PM.jpg",
-            "IMG_20170419_150247 4.24.25 PM.jpg",
-            "P1000852 4.24.25 PM.jpg",
-            "P1010412 4.24.25 PM.jpg",
-            "20150811_163411 4.24.25 PM.jpg",
-            "_DSC0389 4.24.25 PM.jpg",
-            "P1002982 4.24.25 PM.jpg",
-            "P1000854 4.24.25 PM.jpg",
-            "_DSC1153 4.24.25 PM.jpg",
-            "_DSC_Avignon (48) 4.24.25 PM.jpg",
-            "IMG_3773 4.24.25 PM.jpg",
-            "IMG_20170419_145712 4.24.25 PM.jpg",
-            "P1014147 4.24.25 PM.jpg",
-            "DSC_0971 4.24.25 PM.jpg",
-            "_DSC0088 4.24.25 PM.jpg",
-            "DSC_0892 4.24.25 PM.jpg",
-            "_DSC_Avignon (378) 4.24.25 PM.jpg",
-            "20181227_133517 4.24.25 PM.jpg",
-            "_DSC0787 4.24.25 PM.jpg",
-            "_DSC0544 4.24.25 PM.jpg",
-            "_DSC0740 4.24.25 PM.jpg",
-            "20181226_154231 4.24.25 PM.jpg",
-            "20181226_154219 4.24.25 PM.jpg",
-            "100PICT0164 4.24.25 PM.jpg",
-            "100PICT0174 4.24.25 PM.jpg",
-            "100PICT0155 4.24.25 PM.jpg",
-            "100PICT0154 4.24.25 PM.jpg",
-            "100PICT0156 4.24.25 PM.jpg",
-            "1439310778494 4.24.25 PM.jpg",
-            "1439310593346 4.24.25 PM.jpg",
-            "1439233133962 4.24.25 PM.jpg",
-            "1439233156055 4.24.25 PM.jpg",
-            "1439293045656 4.24.25 PM.jpg",
-            "1439295358621 4.24.25 PM.jpg"
-        ];
-
         const gallery = document.getElementById('gallery');
         const lightbox = document.getElementById('myLightbox');
         const lightboxImg = document.getElementById("img01");
         const closeBtn = document.getElementsByClassName("close")[0];
 
-        photos.forEach(filename => {
+        // NOMBRE DE PHOTOS : Change ce chiffre si tu en as plus ou moins !
+        // Si tu as renommé en photo1.jpg ... photo66.jpg
+        const totalPhotos = 66; 
+
+        for (let i = 1; i <= totalPhotos; i++) {
+            const filename = `photo${i}.jpg`; // Suppose que tu as renommé les fichiers
+
             const card = document.createElement('div');
             card.className = 'photo-card';
-            
-            const randomRotation = Math.floor(Math.random() * 6) - 3; 
-            card.style.transform = `rotate(${randomRotation}deg)`;
+            card.style.transform = `rotate(${Math.floor(Math.random() * 6) - 3}deg)`;
 
             const img = document.createElement('img');
-            // Le chemin dossier + nom exact
             img.src = `image/${filename}`; 
-            img.alt = "Souvenir de Noël";
+            img.alt = "Souvenir";
             img.loading = "lazy";
 
-            // Si ça échoue encore, on affiche l'erreur dans la console (F12)
+            // Si ça ne marche pas, on affiche le nom du fichier qui pose problème
             img.onerror = function() {
-                this.parentElement.style.display = 'none';
-                console.log("Erreur chargement : " + filename);
+                console.log("Erreur sur : " + filename);
+                // On n'efface plus la carte pour que tu voies l'erreur
+                this.alt = "Fichier manquant : " + filename;
             };
 
             card.onclick = function() {
@@ -294,7 +109,7 @@
 
             card.appendChild(img);
             gallery.appendChild(card);
-        });
+        }
 
         closeBtn.onclick = function() { lightbox.style.display = "none"; }
         lightbox.onclick = function(e) { if (e.target === lightbox) lightbox.style.display = "none"; }
