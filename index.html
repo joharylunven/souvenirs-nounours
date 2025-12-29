@@ -204,7 +204,7 @@
     </div>
 
     <script>
-        // Liste complète de tes fichiers extraite des captures d'écran
+        // Liste mise à jour : tout est en .jpg
         const photos = [
             "P1014120.jpg", "P1014074.jpg", "P1014003.jpg", "P1013980.jpg", "P1013867.jpg",
             "P1013807.jpg", "20181227_133517.jpg", "20181226_154231.jpg", "20181226_154219.jpg",
@@ -236,7 +236,7 @@
             const card = document.createElement('div');
             card.className = 'photo-card';
             
-            // On ajoute une rotation aléatoire légère pour faire "vrac"
+            // On ajoute une rotation aléatoire légère
             const randomRotation = Math.floor(Math.random() * 6) - 3; 
             card.style.transform = `rotate(${randomRotation}deg)`;
 
@@ -246,7 +246,7 @@
             img.alt = "Souvenir";
             img.loading = "lazy"; // Chargement optimisé
 
-            // Gestion des erreurs (si une image manque, on la cache proprement)
+            // Gestion des erreurs
             img.onerror = function() {
                 this.parentElement.style.display = 'none';
                 console.log("Image introuvable: " + filename);
